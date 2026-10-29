@@ -1,0 +1,25 @@
+# Template installed by deploy/setup-pi.sh (placeholders @USER@, @REPO@, @PORT@ are filled in).
+[Unit]
+Description=Office Board server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=@USER@
+WorkingDirectory=@REPO@
+Environment=NODE_ENV=production
+Environment=HOST=0.0.0.0
+Environment=PORT=@PORT@
+Environment=DATA_DIR=@REPO@/data
+ExecStart=/usr/bin/env node apps/server/dist/index.js
+Restart=always
+RestartSec=5
+# IR receivers live under /dev/input (group input); HDMI-CEC under /dev/cec* and /dev/vchiq (group video).
+SupplementaryGroups=input video
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

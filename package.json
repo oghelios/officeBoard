@@ -1,0 +1,22 @@
+{
+  "name": "officeboard",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Self-hosted office status board for Raspberry Pi",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,magenta \"pnpm --filter @officeboard/server dev\" \"pnpm --filter @officeboard/web dev\"",
+    "build": "pnpm --filter @officeboard/web build && pnpm --filter @officeboard/server build",
+    "start": "pnpm --filter @officeboard/server start",
+    "typecheck": "pnpm -r typecheck",
+    "package": "node scripts/package.mjs",
+    "db:generate": "pnpm --filter @officeboard/server db:generate"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "typescript": "^5.9.3"
+  }
+}
